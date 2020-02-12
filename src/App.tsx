@@ -1,4 +1,4 @@
-import React  from 'react';
+import React, {useCallback}  from 'react';
 import {ThemeProvider, DefaultTheme} from 'styled-components';
 import usePersistedState from './utils/usePersistedState';
 
@@ -13,9 +13,9 @@ import Header from './components/Header';
 const App = () => {
   const [theme, setTheme] = usePersistedState<DefaultTheme>('theme', light);
 
-  const toggleTheme = () => {
-    setTheme(theme.title === 'light' ? dark : light);
-  }
+  const toggleTheme = useCallback(()=>setTheme(theme.title === 'light' ? dark : light), [setTheme, theme.title])
+
+
   return (
     <ThemeProvider theme={theme}>
         <div className="App">
